@@ -4,41 +4,46 @@ const {
   BrowserWindow,
   ipcMain,
 } = require('electron');
-const fetch = require('node-fetch');
 // reload  application   while   coding
 require('electron-reload')(__dirname);
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
+/**
+ * Creat Window
+ */
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1200,
-    height: 1000,
-    minWidth: 800,
-    minHeight: 800,
+    height: 600,
+    minHeight: 500,
+    minWidth: 500,
+    width: 900,
     icon: 'assets/images/logo/logo-icon.png',
     show: false,
     /* , frame: false*/
   });
   // and load the index.html of the app.
-  win.loadFile('html/login.html'); // Open the DevTools.
-  win.webContents.openDevTools();
-  /*    var menu = Menu.buildFromTemplate([{
-              label: '', submenu: [{
-                  label: 'Log out'
-              }]
-          }])*/
+  win.loadFile('html/login.html');
+  // Open the DevTools.
+win.webContents.openDevTools();
+
   win.setMenu(null);
   win.once('ready-to-show', () => {
     win.show();
   });
 }
-// }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+/**
+ * Open System Page
+ */
 ipcMain.on('systemPage', () => {
   win.loadFile('html/index.html');
 });
+
+/**
+ * Open login Page
+ */
 ipcMain.on('loginPage', () => {
   win.loadFile('html/login.html');
 });
